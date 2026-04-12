@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KrishiMitra AI 🌾</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo">🌾 Krishi<span>Mitra</span> AI</div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero" id="home">
+    <h1>Every Farm is Unique 🌱</h1>
+    <p>Personalized AI advice built specifically for YOUR land</p>
+    <button class="hero-btn" onclick="showSection('farm-form')">
+      🚀 Get Started — Fill Farm Profile
+    </button>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tab-btn" onclick="showSection('farm-form')">🌱 Farm Profile</button>
+    <button class="tab-btn" onclick="showSection('ai-advice')">🤖 AI Advice</button>
+    <button class="tab-btn" onclick="showSection('crop-doctor')">📸 Crop Doctor</button>
+    <button class="tab-btn" onclick="showSection('marketplace')">🛒 Marketplace</button>
+    <button class="tab-btn" onclick="showSection('subsidies')">🧾 Subsidies</button>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 1: FARM FINGERPRINT FORM -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section" id="farm-form">
+    <div class="card">
+      <h2>🌱 Your Farm Fingerprint</h2>
+      <p style="color:#888; margin-bottom:20px;">Tell us about your farm — we'll give you personalized advice.</p>
+
+      <div class="form-group">
+        <label>👨‍🌾 Farmer Name</label>
+        <input type="text" id="farmer-name" placeholder="e.g. Raju" />
+      </div>
+
+      <div class="form-group">
+        <label>📍 Village / Location</label>
+        <input type="text" id="village" placeholder="e.g. Nalgonda, Telangana" />
+      </div>
+
+      <div class="form-group">
+        <label>🌾 Current Crop</label>
+        <select id="crop">
+          <option value="">-- Select Crop --</option>
+          <option>Paddy (Rice)</option>
+          <option>Cotton</option>
+          <option>Tomato</option>
+          <option>Chilli</option>
+          <option>Groundnut</option>
+          <option>Maize</option>
+          <option>Sugarcane</option>
+          <option>Turmeric</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>🟤 Soil Type</label>
+        <select id="soil">
+          <option value="">-- Select Soil --</option>
+          <option>Black Cotton Soil</option>
+          <option>Red Soil</option>
+          <option>Sandy Soil</option>
+          <option>Loamy Soil</option>
+          <option>Clay Soil</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>💧 Irrigation Method</label>
+        <select id="irrigation">
+          <option value="">-- Select --</option>
+          <option>Drip Irrigation</option>
+          <option>Flood Irrigation</option>
+          <option>Sprinkler</option>
+          <option>Rain-fed (No irrigation)</option>
+          <option>Canal Water</option>
+          <option>Borewell</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>📐 Farm Size (in acres)</label>
+        <input type="number" id="farm-size" placeholder="e.g. 3" />
+      </div>
+
+      <div class="form-group">
+        <label>⚠️ Any Current Problems?</label>
+        <textarea id="problems" rows="3" placeholder="e.g. Yellowing leaves, pests, water shortage..."></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="saveFarmProfile()">
+        💾 Save Farm Profile & Get AI Advice
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 2: AI ADVICE -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section" id="ai-advice">
+    <div class="card">
+      <h2>🤖 AI Farm Advisor</h2>
+      <p style="color:#888; margin-bottom:20px;">Ask anything about your farm in your own language!</p>
+
+      <!-- Voice Input -->
+      <button class="voice-btn" id="voice-btn" onclick="startVoice()">
+        🎙️ Tap to Speak (Telugu / Hindi / English)
+      </button>
+
+      <div class="voice-text" id="voice-text">
+        Your speech will appear here...
+      </div>
+
+      <button class="submit-btn" onclick="getAIAdvice()" style="margin-bottom:16px;">
+        🌾 Get Farm Advice
+      </button>
+
+      <div class="ai-response" id="ai-response">
+        AI advice will appear here after you speak or ask a question...
+      </div>
+    </div>
+
+    <!-- Weather Widget -->
+    <div class="card">
+      <h2>🌦️ Village Weather Intelligence</h2>
+      <div style="background:#e8f5e9; border-radius:10px; padding:16px;">
+        <p>📍 <strong>Nalgonda, Telangana</strong></p>
+        <p style="margin-top:8px;">🌡️ Temperature: <strong>34°C</strong></p>
+        <p>💧 Humidity: <strong>68%</strong></p>
+        <p>🌧️ Rain expected in: <strong>3 days</strong></p>
+        <p style="margin-top:12px; color:#2d6a4f; font-weight:600;">
+          💡 Tip: Delay irrigation by 3 days — rain expected. Save water!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 3: CROP DOCTOR -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section" id="crop-doctor">
+    <div class="card">
+      <h2>📸 Crop Doctor</h2>
+      <p style="color:#888; margin-bottom:20px;">Upload a photo of your crop — AI will diagnose the problem!</p>
+
+      <div class="upload-area" onclick="document.getElementById('crop-img').click()">
+        <div style="font-size:48px;">📷</div>
+        <p style="margin-top:8px; color:#888;">Click to upload crop photo</p>
+        <input type="file" id="crop-img" accept="image/*" onchange="previewImage(event)" />
+      </div>
+
+      <img id="preview-img" src="" alt="Crop preview" />
+
+      <button class="submit-btn" onclick="diagnoseCrop()">
+        🔍 Diagnose My Crop
+      </button>
+
+      <div class="ai-response" id="diagnosis-result" style="margin-top:16px;">
+        Diagnosis will appear here after uploading a photo...
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 4: MARKETPLACE -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section" id="marketplace">
+    <div class="card">
+      <h2>🛒 Local Marketplace</h2>
+      <p style="color:#888; margin-bottom:20px;">Cheapest fertilizers and seeds near you</p>
+
+      <div class="vendor-card">
+        <div>
+          <div class="vendor-name">🏪 Raju Agri Store</div>
+          <div style="font-size:13px; color:#555;">DAP Fertilizer — ₹1,200/bag</div>
+        </div>
+        <div class="vendor-dist">📍 1.2 km</div>
+      </div>
+
+      <div class="vendor-card">
+        <div>
+          <div class="vendor-name">🏪 Kisan Agro Centre</div>
+          <div style="font-size:13px; color:#555;">Urea — ₹280/bag | Seeds available</div>
+        </div>
+        <div class="vendor-dist">📍 2.8 km</div>
+      </div>
+
+      <div class="vendor-card">
+        <div>
+          <div class="vendor-name">🏪 Sri Sai Agricultural</div>
+          <div style="font-size:13px; color:#555;">Pesticides — Best price in village</div>
+        </div>
+        <div class="vendor-dist">📍 4.1 km</div>
+      </div>
+
+      <div class="vendor-card">
+        <div>
+          <div class="vendor-name">🏛️ Government Agri Shop</div>
+          <div style="font-size:13px; color:#555;">Subsidized seeds & fertilizers</div>
+        </div>
+        <div class="vendor-dist">📍 5.0 km</div>
+      </div>
+    </div>
+
+    <!-- Profit Prediction -->
+    <div class="card">
+      <h2>📊 Profit Prediction</h2>
+      <div style="background:#f0f7f0; border-radius:10px; padding:16px;">
+        <p>🌾 Crop: <strong id="pred-crop">Fill farm profile first</strong></p>
+        <p style="margin-top:8px;">📈 Expected Yield: <strong>12-15 quintals/acre</strong></p>
+        <p>💰 Market Price (Current): <strong>₹2,100/quintal</strong></p>
+        <p>💵 Estimated Income: <strong>₹25,000 - ₹31,500/acre</strong></p>
+        <p style="margin-top:12px; color:#e63946; font-weight:600;">
+          ⚠️ Risk: Tomato prices expected to drop 20% next month. Consider Chilli instead.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- SECTION 5: SUBSIDIES -->
+  <!-- ═══════════════════════════════════════ -->
+  <div class="section" id="subsidies">
+    <div class="card">
+      <h2>🧾 Government Schemes For You</h2>
+      <p style="color:#888; margin-bottom:20px;">Based on your farm profile — schemes you qualify for:</p>
+
+      <div class="subsidy-card">
+        <h4>🌾 PM-KISAN Scheme</h4>
+        <p>₹6,000/year direct to your bank account. All farmers eligible.</p>
+        <p style="margin-top:6px; color:#2d6a4f; font-weight:600;">✅ You likely qualify</p>
+      </div>
+
+      <div class="subsidy-card">
+        <h4>💧 Pradhan Mantri Krishi Sinchayee Yojana</h4>
+        <p>Subsidy on drip/sprinkler irrigation equipment up to 55%.</p>
+        <p style="margin-top:6px; color:#2d6a4f; font-weight:600;">✅ Applies to your farm size</p>
+      </div>
+
+      <div class="subsidy-card">
+        <h4>🌱 Soil Health Card Scheme</h4>
+        <p>Free soil testing. Get a card with fertilizer recommendations for your soil.</p>
+        <p style="margin-top:6px; color:#2d6a4f; font-weight:600;">✅ Free — visit nearest Krishi Kendra</p>
+      </div>
+
+      <div class="subsidy-card">
+        <h4>🏦 Kisan Credit Card (KCC)</h4>
+        <p>Low interest crop loans up to ₹3 lakh at 4% interest rate.</p>
+        <p style="margin-top:6px; color:#2d6a4f; font-weight:600;">✅ Apply at your nearest bank</p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    🌾 KrishiMitra AI — Built for Bharat. Built for every farmer.
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
